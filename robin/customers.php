@@ -32,7 +32,7 @@ try {
             echo "</tr>";
         }
         echo"</table>";
-        unset($results);
+        unset($result);
     } else {
         echo "0 results";
     }
@@ -44,22 +44,20 @@ if(isset($_POST['submit'])) {
     $customerCode = $_POST['customer_code'];
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];
-    $gender = $_POST['gender'];
-    $dateOfBirth = $_POST['date_of_birth'];
     $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $street = $_POST['street'];
-    $houseNumber = $_POST['house_number'];
-    $postalCode = $_POST['postal_code'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
     $registrationDate = $_POST['registration_date'];
-    $customerStatus = $_POST['customer_status'];
-    $loyaltyPoints = $_POST['loyalty_points'];
-    $newsletterSubscribed = $_POST['newsletter_subscribed'];
-    $notes = $_POST['notes'];
-    $createdAt = date('D-m-y H:i:s');
-    $updatedAt = date('D-m-y H:i:s');
+
+    $customer = new Customers();
+
+    $customer->CreateCustomer(
+            $pdo,
+            $customerCode,
+            $firstName,
+            $lastName,
+            $email
+    );
+    header("Location: index.php");
+    exit;
 }
 
 ?>
@@ -92,30 +90,6 @@ if(isset($_POST['submit'])) {
 
     <label>Email</label><br>
     <input type="email" name="email"><br><br>
-
-    <label>Telefoonnummer</label><br>
-    <input type="tel" name="phone"><br><br>
-
-    <label>Straat</label><br>
-    <input type="text" name="street"><br><br>
-
-    <label>Huisnummer</label><br>
-    <input type="number" name="house_number"><br><br>
-
-    <label>Postcode</label><br>
-    <input type="text" name="postal_code"><br><br>
-
-    <label>Woonplaats</label><br>
-    <input type="text" name="city"><br><br>
-
-    <label>Land</label><br>
-    <input type="text" name="country"><br><br>
-
-    <label>Nieuwsbladen subscribtie</label><br>
-    <input type="number" name="newsletters_subscribed"><br><br>
-
-    <label>Notities</label><br>
-    <input type="text" name="notes"><br><br>
 
     <input type="submit" name="submit" value="Opslaan">
 </form>
