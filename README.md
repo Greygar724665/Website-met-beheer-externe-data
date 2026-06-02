@@ -1,1 +1,1 @@
-# Website-met-beheer-exterene-data
+# Website-met-beheer-externe-data
