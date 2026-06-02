@@ -4,6 +4,7 @@ class RawgAPI
 {
     public string $key;
 
+
     /**
      * @param string $key Your API key
      */
@@ -11,6 +12,7 @@ class RawgAPI
     {
         $this->key = $key;
     }
+
 
     /**
      * @param string $url The URL API endpoint
@@ -43,12 +45,14 @@ class RawgAPI
 
     }
 
+
     public function getGameDetails(int $id): array {
         $url = "https://api.rawg.io/api/games/$id";
         $param = [];
 
         return $this->fetch($url, $param);
     }
+
 
     /**
      * Searches games, requires pagination to deal with large values.
