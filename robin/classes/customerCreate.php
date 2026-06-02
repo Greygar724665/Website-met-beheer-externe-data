@@ -11,6 +11,7 @@ class Customers
         customer_code,
         first_name,
         last_name,
+        gender,
         email,
         registration_date
         ) 
@@ -19,6 +20,7 @@ class Customers
         :customer_code,
         :first_name,
         :last_name,
+         :gender,
         :email,
          CURDATE()
         )";

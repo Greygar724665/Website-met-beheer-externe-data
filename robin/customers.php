@@ -54,7 +54,8 @@ if(isset($_POST['submit'])) {
             $customerCode,
             $firstName,
             $lastName,
-            $email
+            $email,
+            $registrationDate
     );
     header("Location: index.php");
     exit;
