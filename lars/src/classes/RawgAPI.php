@@ -55,7 +55,7 @@ class RawgAPI
 
 
     /**
-     * Searches games, requires pagination to deal with large values.
+     * Searches games, requires pagination to deal with large amounts of results.
      * @param string|null $query Search query.
      * @param int $page A page number within the paginated result set.
      * @param int $pageSize Number of results to return per page.
