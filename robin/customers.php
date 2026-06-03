@@ -1,6 +1,7 @@
 <?php
+
 require_once "config/CustomerConfig.php";
-require_once "classes/customerCreate.php";
+require_once "classes/CustomerCreate.php";
 
 try {
     $sql = "SELECT * FROM customers";
@@ -31,13 +32,13 @@ try {
             echo "<td>" . $row['updated_at'] . "</td>";
             echo "</tr>";
         }
-        echo"</table>";
+        echo "</table>";
         unset($result);
     } else {
-        echo "0 results";
+        echo "No results found";
     }
 } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Connection failed" . $e->getMessage();
 }
 
 if(isset($_POST['submit'])) {
@@ -54,10 +55,9 @@ if(isset($_POST['submit'])) {
             $customerCode,
             $firstName,
             $lastName,
-            $email,
-            $registrationDate
+            $email
     );
-    header("Location: index.php");
+    header("Location: customers.php");
     exit;
 }
 

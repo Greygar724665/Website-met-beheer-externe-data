@@ -1,8 +1,6 @@
 <?php
 
-namespace classes;
-require_once "/config/CustomerConfig.php";
-
+require_once "./config/CustomerConfig.php";
 class Customers
 {
     public function CreateCustomer($pdo, $customerCode, $firstName, $lastName, $email)
@@ -11,7 +9,6 @@ class Customers
         customer_code,
         first_name,
         last_name,
-        gender,
         email,
         registration_date
         ) 
@@ -20,7 +17,6 @@ class Customers
         :customer_code,
         :first_name,
         :last_name,
-         :gender,
         :email,
          CURDATE()
         )";
