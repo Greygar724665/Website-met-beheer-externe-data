@@ -12,7 +12,7 @@ class GameVault {
         $this->pdo = $pdo;
     }
 
-    
+
     /**
      * @param string $sql SQL-Query
      * @return false|PDOStatement
@@ -22,7 +22,8 @@ class GameVault {
         return $this->pdo->prepare($sql, $this->options);
     }
 
-    public function getGameByID(int $id) {
+    public function getGameByID(int $id): array
+    {
         $sql = "
             SELECT game_id, title, description, TRUNCATE(price/100, 2) as price, positive_reviews, negative_reviews, review_descs.name as consensus, header_url, released_at, created_at, updated_at
             FROM games
@@ -36,5 +37,7 @@ class GameVault {
 
         return $stmt->fetchAll();
     }
+
+
 
 }
