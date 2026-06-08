@@ -42,21 +42,26 @@ try {
 }
 
 if(isset($_POST['submit'])) {
-    $customerCode = $_POST['customer_code'];
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
-    $registrationDate = $_POST['registration_date'];
 
     $customer = new Customers();
 
     $customer->CreateCustomer(
             $pdo,
-            $customerCode,
-            $firstName,
-            $lastName,
-            $email
+            $_POST['customer_code'],
+            $_POST['first_name'],
+            $_POST['last_name'],
+            $_POST['gender'],
+            $_POST['date_of_birth'],
+            $_POST['email'],
+            $_POST['phone'],
+            $_POST['street'],
+            $_POST['house_number'],
+            $_POST['postal_code'],
+            $_POST['city'],
+            $_POST['country'],
+            $_POST['notes']
     );
+
     header("Location: customers.php");
     exit;
 }
@@ -77,20 +82,38 @@ if(isset($_POST['submit'])) {
     <input type="text" name="last_name"><br><br>
 
     <label>Gender</label><br>
-    <input type="radio" id="male" name="gender" value="male">
-    <label for="male">male</label><br>
-    <input type="radio" id="female" name="gender" value="female">
-    <label for="female">female</label><br>
-    <input type="radio" id="other" name="gender" value="other">
-    <label for="other">other</label><br>
-    <input type="radio" id="prefer not to say" name="gender" value="prefer not to say">
-    <label for="prefer not to say">prefer not to say</label><br><br>
+    <select name="gender">
+        <option value="prefer not to say" selected>
+            Prefer not to say
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select><br><br>
 
     <label>Geboorte datum</label><br>
     <input type="date" name="date_of_birth"><br><br>
 
     <label>Email</label><br>
     <input type="email" name="email"><br><br>
+
+    <label>Telefoonnummer</label><br>
+    <input type="tel" name="phone" pattern="06-[0-9]{8}" max="11"><br><br>
+
+    <label>Straat</label><br>
+    <input type="text" name="street"><br><br>
+
+    <label>Huisnummer</label><br>
+    <input type="number" name="house_number"><br><br>
+
+    <label>Postcode</label><br>
+    <input type="text" name="postal_code"><br><br>
+
+    <label>Woonplaats</label><br>
+    <input type="text" name="city"><br><br>
+
+    <label>Notities</label><br>
+    <input type="text" name="notes"><br><br>
 
     <input type="submit" name="submit" value="Opslaan">
 </form>
