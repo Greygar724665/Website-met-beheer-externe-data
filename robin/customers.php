@@ -28,6 +28,10 @@ try {
             echo "<td>" . $row['loyalty_points'] . "</td>";
             echo "<td>" . $row['newsletter_subscribed'] . "</td>";
             echo "<td>" . $row['notes'] . "</td>";
+            echo "<td>";
+            echo "<a href='customer_edit.php?id=" . $row['customer_id'] . "'>Aanpassen</a> ";
+            echo "<a href='customer_delete.php?id=" . $row['customer_id'] . "'>Verwijderen</a>";
+            echo "</td>";
             echo "<td>" . $row['created_at'] . "</td>";
             echo "<td>" . $row['updated_at'] . "</td>";
             echo "</tr>";
@@ -70,53 +74,55 @@ if(isset($_POST['submit'])) {
 
 <html>
 <body>
+<details>
+    <summary>Nieuwe klant toevoegen</summary>
+    <form method="post">
+        <label>Customer Code</label><br>
+        <input type="text" name="customer_code"><br><br>
 
-<form method="post">
-    <label>Customer Code</label><br>
-    <input type="text" name="customer_code"><br><br>
+        <label>Voornaam</label><br>
+        <input type="text" name="first_name"><br><br>
 
-    <label>Voornaam</label><br>
-    <input type="text" name="first_name"><br><br>
+        <label>Achternaam</label><br>
+        <input type="text" name="last_name"><br><br>
 
-    <label>Achternaam</label><br>
-    <input type="text" name="last_name"><br><br>
+        <label>Gender</label><br>
+        <select name="gender">
+            <option value="prefer not to say" selected>
+                Prefer not to say
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
 
-    <label>Gender</label><br>
-    <select name="gender">
-        <option value="prefer not to say" selected>
-            Prefer not to say
-        </option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-    </select><br><br>
+        <label>Geboorte datum</label><br>
+        <input type="date" name="date_of_birth"><br><br>
 
-    <label>Geboorte datum</label><br>
-    <input type="date" name="date_of_birth"><br><br>
+        <label>Email</label><br>
+        <input type="email" name="email"><br><br>
 
-    <label>Email</label><br>
-    <input type="email" name="email"><br><br>
+        <label>Telefoonnummer</label><br>
+        <input type="tel" name="phone" pattern="06-[0-9]{8}" max="11"><br><br>
 
-    <label>Telefoonnummer</label><br>
-    <input type="tel" name="phone" pattern="06-[0-9]{8}" max="11"><br><br>
+        <label>Straat</label><br>
+        <input type="text" name="street"><br><br>
 
-    <label>Straat</label><br>
-    <input type="text" name="street"><br><br>
+        <label>Huisnummer</label><br>
+        <input type="number" name="house_number"><br><br>
 
-    <label>Huisnummer</label><br>
-    <input type="number" name="house_number"><br><br>
+        <label>Postcode</label><br>
+        <input type="text" name="postal_code"><br><br>
 
-    <label>Postcode</label><br>
-    <input type="text" name="postal_code"><br><br>
+        <label>Woonplaats</label><br>
+        <input type="text" name="city"><br><br>
 
-    <label>Woonplaats</label><br>
-    <input type="text" name="city"><br><br>
+        <label>Notities</label><br>
+        <input type="text" name="notes"><br><br>
 
-    <label>Notities</label><br>
-    <input type="text" name="notes"><br><br>
-
-    <input type="submit" name="submit" value="Opslaan">
-</form>
+        <input type="submit" name="submit" value="Opslaan">
+    </form>
+</details>
 
 </body>
 </html>
