@@ -2,6 +2,7 @@
 
 require_once "config/CustomerConfig.php";
 require_once "classes/CustomerCreate.php";
+require_once "pages/CustomerEdit.php";
 
 try {
     $sql = "SELECT * FROM customers";
@@ -29,8 +30,8 @@ try {
             echo "<td>" . $row['newsletter_subscribed'] . "</td>";
             echo "<td>" . $row['notes'] . "</td>";
             echo "<td>";
-            echo "<a href='customer_edit.php?id=" . $row['customer_id'] . "'>Aanpassen</a> ";
-            echo "<a href='customer_delete.php?id=" . $row['customer_id'] . "'>Verwijderen</a>";
+            echo "<a href='pages/customerEdit.php?id=" . $row['customer_id'] . "'>Aanpassen</a> ";
+            echo "<a href='pages/customer_delete.php?id=" . $row['customer_id'] . "'>Verwijderen</a>";
             echo "</td>";
             echo "<td>" . $row['created_at'] . "</td>";
             echo "<td>" . $row['updated_at'] . "</td>";

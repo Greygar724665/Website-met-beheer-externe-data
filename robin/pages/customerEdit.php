@@ -59,5 +59,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <h1>Klant bewerken</h1>
 
+<label>Voornaam</label><br>
+<input type="text" name="first_name"><br><br>
+
+<label>Achternaam</label><br>
+<input type="text" name="last_name"><br><br>
+
+<label>Gender</label><br>
+<select name="gender">
+    <option value="prefer not to say" selected>
+        Prefer not to say
+    </option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+</select><br><br>
+
+<label>Geboorte datum</label><br>
+<input type="date" name="date_of_birth"><br><br>
+
+<label>Email</label><br>
+<input type="email" name="email"><br><br>
+
+<label>Telefoonnummer</label><br>
+<input type="tel" name="phone" pattern="06-[0-9]{8}" max="11"><br><br>
+
+<label>Straat</label><br>
+<input type="text" name="street"><br><br>
+
+<label>Huisnummer</label><br>
+<input type="number" name="house_number"><br><br>
+
+<label>Postcode</label><br>
+<input type="text" name="postal_code"><br><br>
+
+<label>Woonplaats</label><br>
+<input type="text" name="city"><br><br>
+
+<label>Notities</label><br>
+<input type="text" name="notes"><br><br>
+
+<input type="submit" name="submit" value="Opslaan">
+
 </body>
 </html>
