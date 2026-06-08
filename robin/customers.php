@@ -1,5 +1,7 @@
 <?php
+
 require_once "config/CustomerConfig.php";
+require_once "classes/CustomerCreate.php";
 
 try {
     $sql = "SELECT * FROM customers";
@@ -28,12 +30,70 @@ try {
             echo "<td>" . $row['notes'] . "</td>";
             echo "<td>" . $row['created_at'] . "</td>";
             echo "<td>" . $row['updated_at'] . "</td>";
+            echo "</tr>";
         }
-        echo"</table>";
-        unset($results);
+        echo "</table>";
+        unset($result);
     } else {
-        echo "0 results";
+        echo "No results found";
     }
 } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Connection failed" . $e->getMessage();
 }
+
+if(isset($_POST['submit'])) {
+    $customerCode = $_POST['customer_code'];
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $email = $_POST['email'];
+    $registrationDate = $_POST['registration_date'];
+
+    $customer = new Customers();
+
+    $customer->CreateCustomer(
+            $pdo,
+            $customerCode,
+            $firstName,
+            $lastName,
+            $email
+    );
+    header("Location: customers.php");
+    exit;
+}
+
+?>
+
+<html>
+<body>
+
+<form method="post">
+    <label>Customer Code</label><br>
+    <input type="text" name="customer_code"><br><br>
+
+    <label>Voornaam</label><br>
+    <input type="text" name="first_name"><br><br>
+
+    <label>Achternaam</label><br>
+    <input type="text" name="last_name"><br><br>
+
+    <label>Gender</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">other</label><br>
+    <input type="radio" id="prefer not to say" name="gender" value="prefer not to say">
+    <label for="prefer not to say">prefer not to say</label><br><br>
+
+    <label>Geboorte datum</label><br>
+    <input type="date" name="date_of_birth"><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email"><br><br>
+
+    <input type="submit" name="submit" value="Opslaan">
+</form>
+
+</body>
+</html>
