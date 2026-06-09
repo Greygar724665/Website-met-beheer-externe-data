@@ -39,3 +39,23 @@ body  {
     background-color: var(--bg-color);
     color: var(--text-color);
 }
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.throbber-spin {
+    display: inline-block;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    & g {
+        transform-origin: 256px 256px;
+    }
+}
