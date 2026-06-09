@@ -36,8 +36,10 @@
 
 body  {
     font-family: "Lexend", sans-serif;
+    font-size: 22px;
     background-color: var(--bg-color);
     color: var(--text-color);
+    margin: 10px;
 }
 
 @keyframes spin {
@@ -57,5 +59,69 @@ body  {
 
     & g {
         transform-origin: 256px 256px;
+    }
+}
+
+
+.main-navbar {
+    display: flex;
+    align-items: center;
+}
+.main-navbar a {
+    --light-part: var(--lightBg-0);
+    --dark-part: var(--text-color);
+
+    position: relative;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: calc-size(fit-content, size + 15px);
+    height: calc-size(fit-content, size + 15px);
+
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    color: var(--dark-part);
+
+    transition-duration: 100ms;
+
+
+    /* Every anchor if it's followed by another anchor separated by a divider */
+    &:has(+ a) {
+        margin-right: 22px;
+        &::after { /* Divider */
+            content: "";
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            width: 2.5px;
+            height: 50%;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            background-color: var(--dark-part);
+            pointer-events: none;
+
+        }
+    }
+
+    &:hover,&:focus-visible {
+        color: var(--light-part);
+        background-color: var(--cherryRed-1);
+    }
+    &:focus-visible {
+        outline: 5px solid var(--cherryGreen-2);
+        outline-offset: 3px;
+    }
+}
+
+@supports (corner-shape: squircle) {
+    .main-navbar a {
+        corner-shape: squircle;
+        border-radius: 20px !important;
     }
 }
