@@ -2,13 +2,12 @@
 
 require_once "config/CustomerConfig.php";
 require_once "classes/CustomerCreate.php";
-require_once "pages/CustomerEdit.php";
 
 try {
     $sql = "SELECT * FROM customers";
     $result = $pdo->query($sql);
     if ($result->rowCount() > 0) {
-        echo "<table><tr><th>customer_id</th><th>customer_code</th><th>first_name</th><th>last_name</th><th>gender</th><th>date_of_birth</th><th>email</th><th>phone</th><th>street</th><th>house_number</th><th>postal_code</th><th>city</th><th>country</th><th>registration_date</th><th>customer_status</th><th>loyalty_points</th><th>newsletter_subscribed</th><th>notes</th><th>created_at</th><th>updated_at</th></tr>";
+        echo "<table class='customers_table'><tr><th>customer_id</th><th>customer_code</th><th>first_name</th><th>last_name</th><th>gender</th><th>date_of_birth</th><th>email</th><th>phone</th><th>street</th><th>house_number</th><th>postal_code</th><th>city</th><th>country</th><th>registration_date</th><th>customer_status</th><th>loyalty_points</th><th>newsletter_subscribed</th><th>notes</th><th>created_at</th><th>updated_at</th></tr>";
         while ($row = $result->fetch()) {
             echo "<tr>";
             echo "<td>" . $row['customer_id'] . "</td>";
@@ -30,8 +29,8 @@ try {
             echo "<td>" . $row['newsletter_subscribed'] . "</td>";
             echo "<td>" . $row['notes'] . "</td>";
             echo "<td>";
-            echo "<a href='pages/customerEdit.php?id=" . $row['customer_id'] . "'>Aanpassen</a> ";
-            echo "<a href='pages/customer_delete.php?id=" . $row['customer_id'] . "'>Verwijderen</a>";
+            echo "<a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'>Edit</a>";
+            echo "<a href='pages/customer_delete.php?customer_id=" . $row['customer_id'] . "'>Verwijderen</a>";
             echo "</td>";
             echo "<td>" . $row['created_at'] . "</td>";
             echo "<td>" . $row['updated_at'] . "</td>";
