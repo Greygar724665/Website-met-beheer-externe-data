@@ -21,9 +21,9 @@ class HTMLComponents
 				? $dirKey
 				: $dirs[$dirKey]; // $dirKey is an inex is the array is a list.
 			$href = ($isAssociative
-				? (!empty($dirs[$dirKey]) ? $dirs[$dirKey] : '#') // If href is an empty string, then '#'
-				: '#')
-				?? '#'; // If null then '#'
+				? (!empty($dirs[$dirKey]) ? $dirs[$dirKey] : '#') // If href is an empty: (null, '', [], etc.), then '#'
+				: '#');
+				
 			
 			$html .= <<<HTML
 				<a href="$href">$pageName</a>
