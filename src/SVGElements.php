@@ -14,7 +14,7 @@ class SVGElements
      * @param string|null $extraStyling
      * @return string SVG Element
      */
-    public static function getCutoutRing(?string $color = "black", int $width = 32, int $height = 32, ?string $class = null, ?string $extraStyling = null): string
+    public static function CutoutRing(?string $color = "black", int $width = 32, int $height = 32, ?string $class = null, ?string $extraStyling = null): string
     {
         $color = $color ?? 'black';
         $class = $class ?? '';
@@ -32,4 +32,34 @@ class SVGElements
         </svg>
         HTML;
     }
+	
+	/**
+	 * Used to denote search bars
+	 * @param string|null $color Any CSS accepted color. Variables are assumed if the first 2 characters are `--`
+	 * @param int $width Height of the element
+	 * @param int $height Width of the element
+	 * @param string|null $class External class
+	 * @param string|null $extraStyling
+	 * @return string SVG Element
+	 */
+	public static function MagnifyingGlass(?string $color = "black", int $width = 32, int $height = 32, ?string $class = null, $extraStyling = null): string {
+		$color = $color ?? 'black';
+		$class = $class ?? '';
+		$extraStyling = $extraStyling ?? '';
+		
+		if (str_starts_with($color, '--')) {
+			$color = "var($color)";
+		}
+		
+		return
+		<<< HTML
+			<svg width="$width" height="$height" style="$extraStyling" class="$class" viewBox="0 0 513.749 513.749">
+				<g>
+					<path fill="$color" d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"/>
+				</g>
+			</svg>
+		HTML;
+
+	}
+
 }
