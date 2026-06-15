@@ -25,10 +25,12 @@
 :root, [data-theme="light"] {
     --bg-color: var(--lightBg-1);
     --text-color: var(--darkBg-3);
+    --is-not-dark: true;
 }
 [data-theme="dark"] {
     --bg-color: var(--darkBg-2);
     --text-color: var(--lightBg-0);
+    --is-not-dark: false;
 }
 
 
@@ -36,6 +38,194 @@
 
 body  {
     font-family: "Lexend", sans-serif;
+    font-size: 22px;
     background-color: var(--bg-color);
     color: var(--text-color);
+    margin: 10px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.throbber-spin {
+    display: inline-block;
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform;
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    & g {
+        transform-origin: 256px 256px;
+    }
+}
+
+
+.main-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    & a[aria-current="page"] {
+        color: var(--cherryRed-0);
+    }
+}
+.main-navbar a {
+    --light-part: var(--lightBg-0);
+    --dark-part: var(--text-color);
+
+    position: relative;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: calc-size(fit-content, size + 15px);
+    height: calc-size(fit-content, size + 15px);
+
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    color: var(--dark-part);
+
+    transition-duration: 100ms;
+
+
+    /* Every anchor if it's followed by another anchor separated by a divider */
+    &:has(+ a) {
+        margin-right: 22px;
+        &::after { /* Divider */
+            content: "";
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            width: 2.5px;
+            height: 50%;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            background-color: var(--dark-part);
+            pointer-events: none;
+
+        }
+    }
+
+    &:hover,&:focus-visible {
+        color: var(--light-part) !important;
+        background-color: var(--cherryRed-1);
+    }
+    &:focus-visible {
+        outline: 5px solid var(--cherryGreen-2);
+        outline-offset: 3px;
+    }
+}
+
+.cst-input-group {
+    --outline-clr: var(--lightBg-2);
+
+    --corner-radii: 10px;
+
+    box-shadow: 0 0 0 3px var(--outline-clr);
+
+    height: 43px;
+
+    border-radius: var(--corner-radii);
+    display: flex;
+
+    & > * {
+        all: unset;
+        font-size: 1rem;
+
+        &:first-child {
+            margin-left: 0;
+            margin-right: -.5px;
+            /* Only the left-hand corners */
+            border-radius: var(--corner-radii) 0 0 var(--corner-radii);
+            padding-right: 0 !important;
+        }
+        &:last-child {
+            margin-left: 0;
+            margin-right: 0;
+            /* Only the right-hand-corner */
+            border-radius: 0 10px 10px 0;
+            padding-left: 0 !important;
+        }
+    }
+    & > span {
+        display: inline-flex;
+        width: calc-size(fit-content, size + 15px);
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    & > input {
+        padding-left: 10px;
+        height: 100%;
+    }
+
+    transition-duration: 300ms;
+    &:focus-within {
+        & > span svg path {
+            fill: var(--cherryGreen-3);
+        }
+        box-shadow:
+            0 0 0 5px var(--cherryRed-0);
+
+    }
+
+}
+
+@supports (corner-shape: squircle) {
+    .main-navbar a {
+        corner-shape: squircle;
+        border-radius: 20px !important;
+    }
+
+    .cst-input-group {
+        --corner-radii: 25px;
+        corner-shape: squircle;
+    }
+
+    .cst-input-group > * {
+        corner-shape: squircle;
+        &:first-child {
+            border-radius: 15px 0 0 15px !important;
+        }
+        &:last-child {
+            border-radius: 0 15px 15px 0 !important;
+        }
+    }
+}
+
+@view-transition {
+    navigation: auto;
+}
+@media not (prefers-reduced-motion) {
+    main {
+        view-transition-name: main-content;
+    }
+
+
+
+
+    @keyframes slide-out {
+        to {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+    }
+
+    @keyframes slide-in {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    }
 }
