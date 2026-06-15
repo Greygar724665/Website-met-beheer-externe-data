@@ -1,48 +1,10 @@
 <?php
 
 require_once "config/CustomerConfig.php";
-require_once "classes/CustomerCreate.php";
+require_once "classes/customerCreate.php";
 
-try {
-    $sql = "SELECT * FROM customers";
-    $result = $pdo->query($sql);
-    if ($result->rowCount() > 0) {
-        echo "<table class='customers_table'><tr><th>customer_id</th><th>customer_code</th><th>first_name</th><th>last_name</th><th>gender</th><th>date_of_birth</th><th>email</th><th>phone</th><th>street</th><th>house_number</th><th>postal_code</th><th>city</th><th>country</th><th>registration_date</th><th>customer_status</th><th>loyalty_points</th><th>newsletter_subscribed</th><th>notes</th><th>created_at</th><th>updated_at</th></tr>";
-        while ($row = $result->fetch()) {
-            echo "<tr>";
-            echo "<td>" . $row['customer_id'] . "</td>";
-            echo "<td>" . $row['customer_code'] . "</td>";
-            echo "<td>" . $row['first_name'] . "</td>";
-            echo "<td>" . $row['last_name'] . "</td>";
-            echo "<td>" . $row['gender'] . "</td>";
-            echo "<td>" . $row['date_of_birth'] . "</td>";
-            echo "<td>" . $row['email'] . "</td>";
-            echo "<td>" . $row['phone'] . "</td>";
-            echo "<td>" . $row['street'] . "</td>";
-            echo "<td>" . $row['house_number'] . "</td>";
-            echo "<td>" . $row['postal_code'] . "</td>";
-            echo "<td>" . $row['city'] . "</td>";
-            echo "<td>" . $row['country'] . "</td>";
-            echo "<td>" . $row['registration_date'] . "</td>";
-            echo "<td>" . $row['customer_status'] . "</td>";
-            echo "<td>" . $row['loyalty_points'] . "</td>";
-            echo "<td>" . $row['newsletter_subscribed'] . "</td>";
-            echo "<td>" . $row['notes'] . "</td>";
-            echo "<td>";
-            echo "<a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'>Edit</a>";
-            echo "<a href='pages/customer_delete.php?customer_id=" . $row['customer_id'] . "'>Verwijderen</a>";
-            echo "</td>";
-            echo "<td>" . $row['created_at'] . "</td>";
-            echo "<td>" . $row['updated_at'] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-        unset($result);
-    } else {
-        echo "No results found";
-    }
-} catch (PDOException $e) {
-    echo "Connection failed" . $e->getMessage();
+function getCustomers(PDO $pdo): array {
+    return $pdo->query("SELECT * FROM customers")->fetchAll(PDO::FETCH_ASSOC);
 }
 
 if(isset($_POST['submit'])) {
@@ -73,7 +35,15 @@ if(isset($_POST['submit'])) {
 ?>
 
 <html>
+<head>
+    <link rel="stylesheet" href="../src/styling/stylesheet.css">
+</head>
 <body>
+
+<header>
+    <h1>Klanten</h1>
+</header>
+
 <details>
     <summary>Nieuwe klant toevoegen</summary>
     <form method="post">
@@ -122,7 +92,51 @@ if(isset($_POST['submit'])) {
 
         <input type="submit" name="submit" value="Opslaan">
     </form>
-</details>
+</details><br><br>
+
+<?php foreach (getCustomers($pdo) as $row): ?>
+    <table>
+        <tr>
+            <th><b>Customer ID</b></th>
+            <th><b>Customer code</b></th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Gender</th>
+            <th>Date of birth</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Registration date</th>
+            <th>Customer Status</th>
+            <th>Loyalty points</th>
+            <th>Newsletter Subscribed</th>
+            <th>Notes</th>
+            <th>Edit/Delete</th>
+            <th>Updated at</th>
+        </tr>
+        <tr>
+            <td><?= $row['customer_id'] ?></td>
+            <td><?= $row['customer_code'] ?></td>
+            <td><?= $row['first_name'] ?></td>
+            <td><?= $row['last_name'] ?></td>
+            <td><?= $row['gender'] ?></td>
+            <td><?= $row['date_of_birth'] ?></td>
+            <!--        <td>--><?php //= $row['email'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['phone'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['street'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['house_number'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['postal_code'] ?><!--</td>-->
+            <td><?= $row['city'] ?></td>
+            <td><?= $row['country'] ?></td>
+            <td><?= $row['registration_date'] ?></td>
+            <td><?= $row['customer_status'] ?></td>
+            <td><?= $row['loyalty_points'] ?></td>
+            <td><?= $row['newsletter_subscribed'] ?></td>
+            <td><?= $row['notes'] ?></td>
+            <td><a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'</a>Edit<br><a href='pages/customerDelete.php.php?customer_id=" . $row['customer_id'] . "'</a>Delete</td>
+            <td><?= $row['updated_at'] ?></td>
+        </tr>
+    </table>
+<?php endforeach; ?>
 
 </body>
 </html>
