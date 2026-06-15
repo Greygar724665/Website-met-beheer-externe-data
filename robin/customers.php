@@ -34,11 +34,14 @@ if(isset($_POST['submit'])) {
 
 ?>
 
-<html>
+<html data-theme="light">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../src/styling/stylesheet.css">
 </head>
 <body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 <header>
     <h1>Klanten</h1>
@@ -58,12 +61,12 @@ if(isset($_POST['submit'])) {
 
         <label>Gender</label><br>
         <select name="gender">
-            <option value="prefer not to say" selected>
+            <option value="Prefer not to say" selected>
                 Prefer not to say
             </option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
         </select><br><br>
 
         <label>Geboorte datum</label><br>
@@ -73,7 +76,7 @@ if(isset($_POST['submit'])) {
         <input type="email" name="email"><br><br>
 
         <label>Telefoonnummer</label><br>
-        <input type="tel" name="phone" pattern="06-[0-9]{8}" max="11"><br><br>
+        <input type="tel" name="phone"><br><br>
 
         <label>Straat</label><br>
         <input type="text" name="street"><br><br>
@@ -94,11 +97,10 @@ if(isset($_POST['submit'])) {
     </form>
 </details><br><br>
 
-<?php foreach (getCustomers($pdo) as $row): ?>
     <table>
         <tr>
-            <th><b>Customer ID</b></th>
-            <th><b>Customer code</b></th>
+            <th>Customer ID</th>
+            <th>Customer code</th>
             <th>First name</th>
             <th>Last name</th>
             <th>Gender</th>
@@ -113,6 +115,7 @@ if(isset($_POST['submit'])) {
             <th>Edit/Delete</th>
             <th>Updated at</th>
         </tr>
+        <?php foreach (getCustomers($pdo) as $row): ?>
         <tr>
             <td><?= $row['customer_id'] ?></td>
             <td><?= $row['customer_code'] ?></td>
@@ -132,11 +135,11 @@ if(isset($_POST['submit'])) {
             <td><?= $row['loyalty_points'] ?></td>
             <td><?= $row['newsletter_subscribed'] ?></td>
             <td><?= $row['notes'] ?></td>
-            <td><a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'</a>Edit<br><a href='pages/customerDelete.php.php?customer_id=" . $row['customer_id'] . "'</a>Delete</td>
+            <td><a href="pages/customerEdit.php?customer_id=<?= $row['customer_id']?>"</a>Edit<br><a href="pages/customerDelete.php?id=<?= $row['customer_id']?>"</a>Delete</td>
             <td><?= $row['updated_at'] ?></td>
         </tr>
+        <?php endforeach; ?>
     </table>
-<?php endforeach; ?>
 
 </body>
 </html>

@@ -39,7 +39,7 @@
 body  {
     font-family: "Lexend", sans-serif;
     font-size: 22px;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color) !important;
     color: var(--text-color);
     margin: 10px;
 }
