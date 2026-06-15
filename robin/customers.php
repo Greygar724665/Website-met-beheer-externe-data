@@ -95,30 +95,47 @@ if(isset($_POST['submit'])) {
 </details><br><br>
 
 <?php foreach (getCustomers($pdo) as $row): ?>
-    <tr>
-        <td><?= $row['customer_id'] ?></td>
-        <td><?= $row['customer_code'] ?></td>
-        <td><?= $row['first_name'] ?></td>
-        <td><?= $row['last_name'] ?></td>
-        <td><?= $row['gender'] ?></td>
-        <td><?= $row['date_of_birth'] ?></td>
-        <td><?= $row['email'] ?></td>
-        <td><?= $row['phone'] ?></td>
-        <td><?= $row['street'] ?></td>
-        <td><?= $row['house_number'] ?></td>
-        <td><?= $row['postal_code'] ?></td>
-        <td><?= $row['city'] ?></td>
-        <td><?= $row['country'] ?></td>
-        <td><?= $row['registration_date'] ?></td>
-        <td><?= $row['customer_status'] ?></td>
-        <td><?= $row['loyalty_points'] ?></td>
-        <td><?= $row['newsletter_subscribed'] ?></td>
-        <td><?= $row['notes'] ?></td>
-        <a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'>Edit</a>
-        <a href='pages/customerDelete.php?customer_id=" . $row['customer_id'] . "'>Verwijderen</a>
-        <td><?= $row['created_at'] ?></td>
-        <td><?= $row['updated_at'] ?></td>
-    </tr><br>
+    <table>
+        <tr>
+            <th><b>Customer ID</b></th>
+            <th><b>Customer code</b></th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Gender</th>
+            <th>Date of birth</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Registration date</th>
+            <th>Customer Status</th>
+            <th>Loyalty points</th>
+            <th>Newsletter Subscribed</th>
+            <th>Notes</th>
+            <th>Edit/Delete</th>
+            <th>Updated at</th>
+        </tr>
+        <tr>
+            <td><?= $row['customer_id'] ?></td>
+            <td><?= $row['customer_code'] ?></td>
+            <td><?= $row['first_name'] ?></td>
+            <td><?= $row['last_name'] ?></td>
+            <td><?= $row['gender'] ?></td>
+            <td><?= $row['date_of_birth'] ?></td>
+            <!--        <td>--><?php //= $row['email'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['phone'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['street'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['house_number'] ?><!--</td>-->
+            <!--        <td>--><?php //= $row['postal_code'] ?><!--</td>-->
+            <td><?= $row['city'] ?></td>
+            <td><?= $row['country'] ?></td>
+            <td><?= $row['registration_date'] ?></td>
+            <td><?= $row['customer_status'] ?></td>
+            <td><?= $row['loyalty_points'] ?></td>
+            <td><?= $row['newsletter_subscribed'] ?></td>
+            <td><?= $row['notes'] ?></td>
+            <td><a href='pages/customerEdit.php?customer_id=" . $row['customer_id'] . "'</a>Edit<br><a href='pages/customerDelete.php.php?customer_id=" . $row['customer_id'] . "'</a>Delete</td>
+            <td><?= $row['updated_at'] ?></td>
+        </tr>
+    </table>
 <?php endforeach; ?>
 
 </body>
