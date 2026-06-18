@@ -1,35 +1,37 @@
 <?php
 
 require_once "config/CustomerConfig.php";
-require_once "classes/customerCreate.php";
+require_once "classes/customerCRUD.php";
 
+$customerCRUD = new customerCRUD($pdo);
+
+// read
 function getCustomers(PDO $pdo): array {
     return $pdo->query("SELECT * FROM customers")->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// create
 if(isset($_POST['submit'])) {
 
-    $customer = new Customers();
-
-    $customer->CreateCustomer(
-            $pdo,
-            $_POST['customer_code'],
-            $_POST['first_name'],
-            $_POST['last_name'],
-            $_POST['gender'],
-            $_POST['date_of_birth'],
-            $_POST['email'],
-            $_POST['phone'],
-            $_POST['street'],
-            $_POST['house_number'],
-            $_POST['postal_code'],
-            $_POST['city'],
-            $_POST['country'],
-            $_POST['notes']
-    );
+    $customerCRUD->createCustomer($_POST);
 
     header("Location: customers.php");
     exit;
+}
+
+// delete
+if(isset($_POST['delete_id'])){
+
+
+    $id = intval($_POST['delete_id']);
+
+
+    $customerCRUD->deleteCustomer($id);
+
+
+    header("Location: customers.php");
+    exit;
+
 }
 
 ?>
@@ -49,20 +51,102 @@ if(isset($_POST['submit'])) {
 </header>
 
 <div class="content">
-    <details>
-        <summary>Nieuwe klant toevoegen</summary>
+
+<!--    <div id="create-modal" class="modal">-->
+<!--        <form method="post">-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Customer Code</label>-->
+<!--                    <input class="newCustomer-field" type="text" name="customer_code">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>First name</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="first_name">-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <label>Last name</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="last_name">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Gender</label><br>-->
+<!--                    <select class="newCustomer-field" name="gender">-->
+<!--                        <option value="Prefer not to say" selected>-->
+<!--                            Prefer not to say-->
+<!--                        </option>-->
+<!--                        <option value="Male">Male</option>-->
+<!--                        <option value="Female">Female</option>-->
+<!--                        <option value="Other">Other</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Date of birth</label><br>-->
+<!--                    <input class="newCustomer-field" type="date" name="date_of_birth">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Email</label><br>-->
+<!--                    <input class="newCustomer-field" type="email" name="email">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Telefoonnummer</label><br>-->
+<!--                    <input class="newCustomer-field" type="tel" name="phone">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Street</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="street">-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <label>House number</label><br>-->
+<!--                    <input class="newCustomer-field" type="number" name="house_number">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Postal code</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="postal_code">-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <label>City</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="city">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <label>Notes</label><br>-->
+<!--                    <input class="newCustomer-field" type="text" name="notes">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <input type="submit" name="submit" value="Opslaan">-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+
+    <details class="newCustomer">
+        <summary>Create new customer</summary>
         <form method="post">
             <br><label>Customer Code</label><br>
-            <input type="text" name="customer_code"><br><br>
+            <input class="newCustomer-field" type="text" name="customer_code"><br><br>
 
-            <label>Voornaam</label><br>
-            <input type="text" name="first_name"><br><br>
+            <label>First name</label><br>
+            <input class="newCustomer-field" type="text" name="first_name"><br><br>
 
-            <label>Achternaam</label><br>
-            <input type="text" name="last_name"><br><br>
+            <label>Last name</label><br>
+            <input class="newCustomer-field" type="text" name="last_name"><br><br>
 
             <label>Gender</label><br>
-            <select name="gender">
+            <select class="newCustomer-field" name="gender">
                 <option value="Prefer not to say" selected>
                     Prefer not to say
                 </option>
@@ -71,29 +155,29 @@ if(isset($_POST['submit'])) {
                 <option value="Other">Other</option>
             </select><br><br>
 
-            <label>Geboorte datum</label><br>
-            <input type="date" name="date_of_birth"><br><br>
+            <label>Date of birth</label><br>
+            <input class="newCustomer-field" type="date" name="date_of_birth"><br><br>
 
             <label>Email</label><br>
-            <input type="email" name="email"><br><br>
+            <input class="newCustomer-field" type="email" name="email"><br><br>
 
             <label>Telefoonnummer</label><br>
-            <input type="tel" name="phone"><br><br>
+            <input class="newCustomer-field" type="tel" name="phone"><br><br>
 
-            <label>Straat</label><br>
-            <input type="text" name="street"><br><br>
+            <label>Street</label><br>
+            <input class="newCustomer-field" type="text" name="street"><br><br>
 
-            <label>Huisnummer</label><br>
-            <input type="number" name="house_number"><br><br>
+            <label>House number</label><br>
+            <input class="newCustomer-field" type="number" name="house_number"><br><br>
 
-            <label>Postcode</label><br>
-            <input type="text" name="postal_code"><br><br>
+            <label>Postal code</label><br>
+            <input class="newCustomer-field" type="text" name="postal_code"><br><br>
 
-            <label>Woonplaats</label><br>
-            <input type="text" name="city"><br><br>
+            <label>City</label><br>
+            <input class="newCustomer-field" type="text" name="city"><br><br>
 
-            <label>Notities</label><br>
-            <input type="text" name="notes"><br><br>
+            <label>Notes</label><br>
+            <input class="newCustomer-field" type="text" name="notes"><br><br>
 
             <input type="submit" name="submit" value="Opslaan">
         </form>
@@ -125,11 +209,6 @@ if(isset($_POST['submit'])) {
                 <td><?= $row['last_name'] ?></td>
                 <td><?= $row['gender'] ?></td>
                 <td><?= $row['date_of_birth'] ?></td>
-                <!--        <td>--><?php //= $row['email'] ?><!--</td>-->
-                <!--        <td>--><?php //= $row['phone'] ?><!--</td>-->
-                <!--        <td>--><?php //= $row['street'] ?><!--</td>-->
-                <!--        <td>--><?php //= $row['house_number'] ?><!--</td>-->
-                <!--        <td>--><?php //= $row['postal_code'] ?><!--</td>-->
                 <td><?= $row['city'] ?></td>
                 <td><?= $row['country'] ?></td>
                 <td><?= $row['registration_date'] ?></td>
@@ -138,7 +217,9 @@ if(isset($_POST['submit'])) {
                 <td><?= $row['newsletter_subscribed'] ?></td>
                 <td><?= $row['notes'] ?></td>
                 <td><a href="pages/customerEdit.php?customer_id=<?= $row['customer_id']?>">
-                        <button type="button">Edit</button>
+                        <button type="button" class="edit-btn">
+                            Edit
+                        </button>
                     </a><br>
                     <button type="button" class="delete-btn"
                             onclick="openModal(<?= $row['customer_id'] ?>)">
@@ -156,7 +237,7 @@ if(isset($_POST['submit'])) {
             <p>Are you sure you want to delete this data?</p>
 
             <form method="post">
-                <input type="hidden" name="cancel-btn" id="delete_id_input">
+                <input type="hidden" name="delete_id" id="delete_id_input">
 
                 <div class="delete-buttons">
                     <button type="button" class="cancel-btn" onclick="closeModal()">

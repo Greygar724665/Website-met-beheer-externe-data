@@ -10,7 +10,7 @@
 
 .modal-content {
     background: #3a6637;
-    color: white;
+    color: #FFF9F0;
     padding: 20px;
     width: 550px;
     margin: 15% auto;
@@ -26,4 +26,24 @@
     background-color: #9b2b45;
     color: #f6e7d4;
     border: none;
+}
+
+.delete-btn {
+    background-color: #9b2b45;
+    color: #f6e7d4;
+    border: none;
+    padding: 5px;
+    margin: 4px;
+}
+
+.edit-btn {
+    background: #3a6637;
+    color: #FFF9F0;
+    border: none;
+    padding: 5px;
+    margin: 4px;
+}
+
+.newCustomer-field {
+    background: #FFF9F0;
 }
