@@ -1,4 +1,5 @@
 :root {
+    /* region Colors */
     --cherryRed-0: #BA4C66;
     --cherryRed-1: #9b2b45;
     --cherryRed-2: #780F27;
@@ -20,6 +21,19 @@
     --darkBg-1: #383e4d;
     --darkBg-2: #202736;
     --darkBg-3: #151D30;
+    /* endregion Colors */
+
+    /* region Named font-weights */
+    --fw-thin: 100;
+    --fw-extra-light: 200;
+    --fw-light: 300;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 600;
+    --fw-bold: 700;
+    --fw-extra-bold: 800;
+    --fw-black: 900;
+    /* endregion Named font-weights */
 }
 
 :root, [data-theme="light"] {
