@@ -10,8 +10,12 @@ class customerCRUD
     }
 
     // read functie
-    function getCustomers(PDO $pdo): array {
-        return $pdo->query("SELECT * FROM customers")->fetchAll(PDO::FETCH_ASSOC);
+    public function getCustomers(PDO $pdo): array {
+        return $pdo->query($sql = "SELECT *"
+
+            . "FROM transactions\n"
+
+            . "INNER JOIN customers ON customers.customer_id = transactions.customer_id;")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // create functie

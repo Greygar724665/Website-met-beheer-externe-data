@@ -32,21 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     WHERE customer_id = :customer_id
         ");
 
-//    $stmt->execute([
-//        "first_name" => $row['first_name'],
-//        "last_name" => $row['last_name'],
-//        "gender" => $row['gender'],
-//        "date_of_birth" => $row['date_of_birth'],
-//        "email" => $row['email'],
-//        "phone" => $row['phone'],
-//        "street" => $row['street'],
-//        "house_number" => $row['house_number'],
-//        "postal_code" => $row['postal_code'],
-//        "city" => $row['city'],
-//        "country" => $row['country'],
-//        "notes" => $row['notes']
-//    ]);
-
     $stmt->execute([
             "first_name" => $_POST['first_name'],
             "last_name" => $_POST['last_name'],

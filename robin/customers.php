@@ -4,11 +4,7 @@ require_once "config/CustomerConfig.php";
 require_once "classes/customerCRUD.php";
 
 $customerCRUD = new customerCRUD($pdo);
-
-// read
-function getCustomers(PDO $pdo): array {
-    return $pdo->query("SELECT * FROM customers")->fetchAll(PDO::FETCH_ASSOC);
-}
+$customerCRUD->getCustomers($pdo);
 
 // create
 if(isset($_POST['submit'])) {
@@ -22,16 +18,12 @@ if(isset($_POST['submit'])) {
 // delete
 if(isset($_POST['delete_id'])){
 
-
     $id = intval($_POST['delete_id']);
-
 
     $customerCRUD->deleteCustomer($id);
 
-
     header("Location: customers.php");
     exit;
-
 }
 
 ?>
@@ -201,7 +193,7 @@ if(isset($_POST['delete_id'])){
             <th>Edit/Delete</th>
             <th>Updated at</th>
         </tr>
-        <?php foreach (getCustomers($pdo) as $row): ?>
+        <?php foreach ($customerCRUD->getCustomers($pdo) as $row): ?>
             <tr>
                 <td><?= $row['customer_id'] ?></td>
                 <td><?= $row['customer_code'] ?></td>
