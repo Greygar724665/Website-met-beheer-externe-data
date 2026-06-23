@@ -47,10 +47,12 @@ async function fillSearchTable() {
         `
         <tr data-id="${id}">
             <th scope="col">
+                <button data-action="edit">Edit</button>
+                <button data-action="del">Delete</button>
                 ${id}
             </th>
             <td>${title}</td>
-            <td>${price}</td>
+            <td>${price ?? '0.00'}</td>
         </tr>
         `
 
@@ -59,6 +61,7 @@ async function fillSearchTable() {
     for (const game of data.data) {
         tbody.innerHTML += createRow(game.game_id, game.title, game.price)
     }
+    document.querySelector('#search-results-counter > span').innerHTML = Object.keys(data.data).length.toString();
 }
 
 
@@ -98,3 +101,26 @@ setupNavSearch((results) => {
 
 searchpageSearchbar.addEventListener('input', fillSearchTable)
 
+const deleteModal = (title, id) => BootstrapComponents.createModal({
+    title: `Do you wish to delete <b>${title}</b>?`,
+    body:  `This action is permanent and cannot be undone.<br> Press <kbd style="background-color: var(--bs-danger)">Proceed</kbd> to confirm the deletion of <b>${title}(${id})</b>`,
+    haveConfirm: true,
+    confirmText: "Proceed",
+    confirmColor: "danger",
+    dismissText: "Nevermind",
+})
+
+
+gameTable.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-action]');
+    const row    = event.target.closest('tr[data-id]');
+    if (!button || !row) return;
+
+    const action = button.dataset.action;
+    const id = row.dataset.id;
+
+    if (action === 'del') {
+        deleteModal(row.cells[1].innerText, id)
+    }
+
+})

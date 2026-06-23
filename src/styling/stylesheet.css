@@ -243,3 +243,32 @@ body  {
         }
     }
 }
+
+#game-table {
+    & thead > tr > th {
+        text-align: center;
+        border-bottom: 2px solid black;
+        &:has(+ th) {
+            border-right: 2px solid black;
+        }
+    }
+    & tbody > tr > th > button {
+        all: unset;
+        padding: 5px;
+        border-radius: 4px;
+        line-height: 1;
+        cursor: pointer;
+        font-weight: var(--fw-semi-bold);
+        font-size: 12px;
+        &:hover {
+            background-color: var(--lightBg-2);
+        }
+        &:active {
+            background-color: color-mix(in srgb, var(--lightBg-1), var(--lightBg-2));
+        }
+
+        &[data-action=del] {
+            color: darkred;
+        }
+    }
+}
